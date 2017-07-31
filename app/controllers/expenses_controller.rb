@@ -3,7 +3,7 @@ class ExpensesController < ApplicationController
     # puts "HOLAAAA: #{current_user.id}"
     user_session = current_user.id
     @expenses = if params[:concept] && params[:category_id]
-      Expense.where('concept LIKE ?',"%#{params[:concept]}%").
+      Expense.where(user_id: user_session).where('concept LIKE ?',"%#{params[:concept]}%").
       where('category_id LIKE ?',"%#{params[:category_id]}%")
     else
         @expense = Expense.where(user_id: user_session).order('date DESC')
